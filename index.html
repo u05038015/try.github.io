@@ -1,0 +1,126 @@
+﻿<!Doctype html>
+<html>
+
+<head>
+    <title>HTML Application</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <style type="text/css">
+        .tableSimpleStyle {
+            border-collapse: collapse;
+            border: black thin solid;
+            border: 1px solid black;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .blackCell {
+            border-collapse: collapse;
+            border: black thin solid;
+            border: 1px solid black;
+            text-align: center;
+            background-color: black;
+        }
+
+        .button {
+            background-color: black;
+            border: none;
+            color: white;
+            padding: 5px 50px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <table id="table" class="tableSimpleStyle" style="width: 20%;">
+            <thead>
+                <tr>
+                    <th class="blackCell" colspan="2">
+                        <input type="button" id="submit" value="Click me to add row!" class='button'>
+                    </th>
+                </tr>
+                <tr>
+                    <th class="tableSimpleStyle" style="width: 50%;">Time Stamp</th>
+                    <th class="tableSimpleStyle" style="width: 50%;">Delete Row</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+        <p align="center">
+            <button type="button" class='button'>What are the number of NEW Rows?</button>
+        </p>
+    </div>
+</body>
+
+<!-- Do not edit above this line ---------------------------------------------------------->
+<!-- -------------------------------------------------------------------------------------->
+<!-- Edit below this line  ---------------------------------------------------------------->
+
+<script type="text/javascript">
+    window.onload = function () {
+        document
+        // Get the element by ID when the submit button is clicked.
+        .getElementById("submit")
+
+        // (1) FUNCTION 1 - Anonymous function
+        //-----------------------------------------------------------------
+        // Add an event listener that responds when the "Click me to add row!" button is clicked.
+        .addEventListener("click", function () {
+            // Use a "let" variable for date to declare a new date.
+            let date = new Date();
+            // Use a "let" variable to declare a variable for "table" that will get an element from "tbody"
+            let table = document.getElementById("tbody");
+            
+            var del = "<a class='delete' href='JavaScript:void(0);'><button type='button' id='btnAdd' class='button'>Remove</button> </a>";
+            // Use innerHTML to add new rows to the provided table. 
+            // Add a row with a table divider that contains the date and a button.
+            table.innerHTML +=
+                    `<tr>` +
+                    `<td class="tableSimpleStyle" style="width: 50%;">${date.toLocaleTimeString()}</td>` +
+                    `<td class="tableSimpleStyle" style="width: 50%;">${del}</td>`+
+                    `</tr>`;
+                
+            // Note the following:
+            // You will have to convert the date to string so that it can be transferred to the table.
+            // You will have to use JavaScript:void(0) on the button to ensure that the button is processed correctly. 
+            // JavaScript:void(0) removes the "JavaScript" command functionality in the applicable section it is used.
+            // If you do not use JavaScript:void(0) then the "button" will be read as a button and not a a string to be processed by the DOM.
+            // All relevant styles should be applied to the table being added / created.
+        });
+
+        // (2) FUNCTION  2 - Function passing parameter "e"
+        //-----------------------------------------------------------------
+        // This function needs to access the table by means of the table id, and when the user clicks delete, the function will remove the closes table row.
+        $("#table").on("click", ".delete", function (e) {
+            $(this).closest('tr').remove();
+        });
+
+        // (3) FUNCTION 3 - Anonymous function
+        //-----------------------------------------------------------------
+        // This function counts the number of rows that has been added.
+        // This function SHOULD make use of the button class instead of a created ID.
+        // Please note that there are already x2 rows on the page. These two rows should not be included in the row count as they are not "new rows"
+        // The counted rows should then be displayed in a jQuery alert.
+        $("button").click(function(){
+            var count_elements = $('tr').length - 2;
+            //is for one element and are for more than one
+            if (count_elements > 1) {
+                alert("There are " + count_elements + " additional rows."); 
+            }
+            else {
+                alert("There is " + count_elements + " additional row.");
+            }
+        });
+        
+    }
+</script>
+
+</html>
